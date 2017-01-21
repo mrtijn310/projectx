@@ -1,0 +1,7 @@
+file = open("bluetoothdevices.txt", "w")
+file.write("Device 01"+"\n")
+file.write("Device 02"+"\n")
+file.write("Device 03"+"\n")
+file.write("Device 04"+"\n")
+file.write("Device 05"+"\n")
+file.close()
