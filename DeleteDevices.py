@@ -1,14 +1,24 @@
+#!/usr/bin/python
+
+import bluetooth
+import time
+
+print "Start deleting devices"
+
+devicelist = []
+nearby_devices = bluetooth.discover_devices()
+for bdaddr in nearby_devices:
+    devicelist.append(bdaddr+"\n")
+    print "Found " + bdaddr
+
 file = open("bluetoothdevices.txt", "r")
 lines = file.readlines()
 file.close()
-
-devicelist = []
-devicelist.append("Device 03" + "\n")
-devicelist.append("Device 04"+ "\n")
-
 
 file = open("bluetoothdevices.txt", "w")
 for line in lines:
   if line not in devicelist:
     file.write(line)
 file.close()
+
+print "End deleting devices"

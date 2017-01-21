@@ -3,9 +3,9 @@
 import bluetooth
 import time
 
-print "Start gathering devices"
+print "Start appending devices"
 
-file  = open("bluetoothdevices.txt", "w")
+file  = open("bluetoothdevices.txt", "a")
 
 nearby_devices = bluetooth.discover_devices()
 for bdaddr in nearby_devices:
@@ -13,4 +13,4 @@ for bdaddr in nearby_devices:
     print "Found " + bdaddr
 
 file.close()
-print "End gathering devices"
+print "End appending devices"
