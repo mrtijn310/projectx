@@ -1,0 +1,50 @@
+﻿@model Crouny.Web.Models.DevicesViewModel
+
+@foreach (var device in Model.Devices)
+{
+    <div>
+        <h5>Apparaat: @device.DeviceName</h5>
+        <p>
+            @foreach (var plugin in device.DeviceScripts)
+            {
+                using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("PluginId", plugin.PluginId)
+
+
+                    <p>Script naam: @plugin.ScriptName</p>
+                    for (int index = 0; index < plugin.ParametersDecoded.Count(); index++)
+                    {
+                        <p>parameter:@plugin.ParametersDecoded[index].Name</p>
+                        <p>
+                            @switch (plugin.ParametersDecoded[index].Type)
+                            {
+                                case "Int64":
+                                    @Html.Hidden("ParametersDecoded[" + index + "].Type", plugin.ParametersDecoded[index].Type)
+                                    @Html.Hidden("ParametersDecoded[" + index + "].Name", plugin.ParametersDecoded[index].Name)
+                                    <input name="ParametersDecoded[@index].Value" id="ParametersDecoded[@index].Value" type="number" value="@plugin.ParametersDecoded[index].Value"/>
+                                    break;
+                                case "Bool":
+                                    @Html.Hidden("ParametersDecoded[" + index + "].Type", plugin.ParametersDecoded[index].Type)
+                                    @Html.Hidden("ParametersDecoded[" + index + "].Name", plugin.ParametersDecoded[index].Name)
+
+                                    <div class="switch">
+                                        <label>
+                                            <input name="ParametersDecoded[@index].Value" id="ParametersDecoded[@index].Value" @Html.Raw(plugin.ParametersDecoded[index].Value == "true" ? "checked": "") value="true" type="checkbox"> <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                    <div class="clearfix" />
+                                    break;
+                            }
+                        </p>
+                    }
+
+                    <button type="submit" class="waves-effect btn purple right">Opslaan</button>
+                    <div class="clearfix"/>
+                }
+
+            }
+        </p>
+    </div>
+}

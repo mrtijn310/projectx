@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CrounyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="DeviceId" />
+          </Key>
+          <Property Name="DeviceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="DevicePlugin">
+          <Key>
+            <PropertyRef Name="DeviceId" />
+            <PropertyRef Name="PluginId" />
+          </Key>
+          <Property Name="DeviceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PluginId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeviceSettings">
+          <Key>
+            <PropertyRef Name="DeviceSettingsId" />
+          </Key>
+          <Property Name="DeviceSettingsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Plugin">
+          <Key>
+            <PropertyRef Name="PluginId" />
+          </Key>
+          <Property Name="PluginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PluginType" Type="tinyint" Nullable="false" />
+          <Property Name="Script" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Parameters" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Scriptname" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rule">
+          <Key>
+            <PropertyRef Name="RuleId" />
+          </Key>
+          <Property Name="RuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PluginId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Settings" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Device_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevicePlugin_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="DevicePlugin" Type="Self.DevicePlugin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DevicePlugin">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DevicePlugin_Plugin">
+          <End Role="Plugin" Type="Self.Plugin" Multiplicity="1" />
+          <End Role="DevicePlugin" Type="Self.DevicePlugin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plugin">
+              <PropertyRef Name="PluginId" />
+            </Principal>
+            <Dependent Role="DevicePlugin">
+              <PropertyRef Name="PluginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceSettings_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="DeviceSettings" Type="Self.DeviceSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DeviceSettings">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rule_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="Rule" Type="Self.Rule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="Rule">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rule_Plugin">
+          <End Role="Plugin" Type="Self.Plugin" Multiplicity="1" />
+          <End Role="Rule" Type="Self.Rule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plugin">
+              <PropertyRef Name="PluginId" />
+            </Principal>
+            <Dependent Role="Rule">
+              <PropertyRef Name="PluginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CrounyModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DevicePlugin" EntityType="Self.DevicePlugin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceSettings" EntityType="Self.DeviceSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plugin" EntityType="Self.Plugin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rule" EntityType="Self.Rule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Device_Account" Association="Self.FK_Device_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevicePlugin_Device" Association="Self.FK_DevicePlugin_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DevicePlugin" EntitySet="DevicePlugin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DevicePlugin_Plugin" Association="Self.FK_DevicePlugin_Plugin">
+            <End Role="Plugin" EntitySet="Plugin" />
+            <End Role="DevicePlugin" EntitySet="DevicePlugin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceSettings_Device" Association="Self.FK_DeviceSettings_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DeviceSettings" EntitySet="DeviceSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rule_Device" Association="Self.FK_Rule_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="Rule" EntitySet="Rule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rule_Plugin" Association="Self.FK_Rule_Plugin">
+            <End Role="Plugin" EntitySet="Plugin" />
+            <End Role="Rule" EntitySet="Rule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CrounyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CrounyEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Accounts" EntityType="CrounyModel.Account" />
+          <EntitySet Name="Devices" EntityType="CrounyModel.Device" />
+          <EntitySet Name="DeviceSettings" EntityType="CrounyModel.DeviceSetting" />
+          <EntitySet Name="Plugins" EntityType="CrounyModel.Plugin" />
+          <AssociationSet Name="FK_Device_Account" Association="CrounyModel.FK_Device_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Device" EntitySet="Devices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceSettings_Device" Association="CrounyModel.FK_DeviceSettings_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="DeviceSetting" EntitySet="DeviceSettings" />
+          </AssociationSet>
+          <AssociationSet Name="DevicePlugin" Association="CrounyModel.DevicePlugin">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="Plugin" EntitySet="Plugins" />
+          </AssociationSet>
+          <EntitySet Name="Rules" EntityType="CrounyModel.Rule" />
+          <AssociationSet Name="FK_Rule_Device" Association="CrounyModel.FK_Rule_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="Rule" EntitySet="Rules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rule_Plugin" Association="CrounyModel.FK_Rule_Plugin">
+            <End Role="Plugin" EntitySet="Plugins" />
+            <End Role="Rule" EntitySet="Rules" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Devices" Relationship="CrounyModel.FK_Device_Account" FromRole="Account" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="DeviceId" />
+          </Key>
+          <Property Name="DeviceId" Type="Guid" Nullable="false" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="CrounyModel.FK_Device_Account" FromRole="Device" ToRole="Account" />
+          <NavigationProperty Name="DeviceSettings" Relationship="CrounyModel.FK_DeviceSettings_Device" FromRole="Device" ToRole="DeviceSetting" />
+          <NavigationProperty Name="Plugins" Relationship="CrounyModel.DevicePlugin" FromRole="Device" ToRole="Plugin" />
+          <NavigationProperty Name="Rules" Relationship="CrounyModel.FK_Rule_Device" FromRole="Device" ToRole="Rule" />
+        </EntityType>
+        <EntityType Name="DeviceSetting">
+          <Key>
+            <PropertyRef Name="DeviceSettingsId" />
+          </Key>
+          <Property Name="DeviceSettingsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="Guid" Nullable="false" />
+          <Property Name="DeviceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="CrounyModel.FK_DeviceSettings_Device" FromRole="DeviceSetting" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="Plugin">
+          <Key>
+            <PropertyRef Name="PluginId" />
+          </Key>
+          <Property Name="PluginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PluginType" Type="Byte" Nullable="false" />
+          <Property Name="Script" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Parameters" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Scriptname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Devices" Relationship="CrounyModel.DevicePlugin" FromRole="Plugin" ToRole="Device" />
+          <NavigationProperty Name="Rules" Relationship="CrounyModel.FK_Rule_Plugin" FromRole="Plugin" ToRole="Rule" />
+        </EntityType>
+        <Association Name="FK_Device_Account">
+          <End Type="CrounyModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="CrounyModel.Device" Role="Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceSettings_Device">
+          <End Type="CrounyModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="CrounyModel.DeviceSetting" Role="DeviceSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DeviceSetting">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DevicePlugin">
+          <End Type="CrounyModel.Device" Role="Device" Multiplicity="*" />
+          <End Type="CrounyModel.Plugin" Role="Plugin" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Rule">
+          <Key>
+            <PropertyRef Name="RuleId" />
+          </Key>
+          <Property Name="RuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="Guid" Nullable="false" />
+          <Property Name="PluginId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Settings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="CrounyModel.FK_Rule_Device" FromRole="Rule" ToRole="Device" />
+          <NavigationProperty Name="Plugin" Relationship="CrounyModel.FK_Rule_Plugin" FromRole="Rule" ToRole="Plugin" />
+        </EntityType>
+        <Association Name="FK_Rule_Device">
+          <End Type="CrounyModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="CrounyModel.Rule" Role="Rule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="Rule">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rule_Plugin">
+          <End Type="CrounyModel.Plugin" Role="Plugin" Multiplicity="1" />
+          <End Type="CrounyModel.Rule" Role="Rule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plugin">
+              <PropertyRef Name="PluginId" />
+            </Principal>
+            <Dependent Role="Rule">
+              <PropertyRef Name="PluginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CrounyModelStoreContainer" CdmEntityContainer="CrounyEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="CrounyModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devices">
+            <EntityTypeMapping TypeName="CrounyModel.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceSettings">
+            <EntityTypeMapping TypeName="CrounyModel.DeviceSetting">
+              <MappingFragment StoreEntitySet="DeviceSettings">
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="DeviceSettingsId" ColumnName="DeviceSettingsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plugins">
+            <EntityTypeMapping TypeName="CrounyModel.Plugin">
+              <MappingFragment StoreEntitySet="Plugin">
+                <ScalarProperty Name="Scriptname" ColumnName="Scriptname" />
+                <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+                <ScalarProperty Name="Script" ColumnName="Script" />
+                <ScalarProperty Name="PluginType" ColumnName="PluginType" />
+                <ScalarProperty Name="PluginId" ColumnName="PluginId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="DevicePlugin" TypeName="CrounyModel.DevicePlugin" StoreEntitySet="DevicePlugin">
+            <EndProperty Name="Plugin">
+              <ScalarProperty Name="PluginId" ColumnName="PluginId" />
+            </EndProperty>
+            <EndProperty Name="Device">
+              <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Rules">
+            <EntityTypeMapping TypeName="CrounyModel.Rule">
+              <MappingFragment StoreEntitySet="Rule">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Settings" ColumnName="Settings" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PluginId" ColumnName="PluginId" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

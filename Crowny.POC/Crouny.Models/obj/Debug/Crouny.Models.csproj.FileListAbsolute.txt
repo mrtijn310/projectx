@@ -1,0 +1,14 @@
+F:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\bin\Debug\Crouny.Models.dll
+F:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\bin\Debug\Crouny.Models.pdb
+F:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\obj\Debug\Crouny.Models.dll
+F:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\obj\Debug\Crouny.Models.pdb
+F:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\obj\Debug\Crouny.Models.csprojResolveAssemblyReference.cache
+F:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\bin\Debug\Newtonsoft.Json.dll
+F:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\bin\Debug\Crouny.Models.dll
+C:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\bin\Debug\Crouny.Models.pdb
+C:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\obj\Debug\Crouny.Models.csprojResolveAssemblyReference.cache
+C:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\obj\Debug\Crouny.Models.dll
+C:\Users\Rob\Documents\Visual Studio 2015\Projects\Crowny.POC\Crouny.Models\obj\Debug\Crouny.Models.pdb

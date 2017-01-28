@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Crouny.PushServer</name>
+    </assembly>
+    <members>
+        <member name="M:Crouny.PushServer.PushServer.SetupPushClient(System.Int32,System.String)">
+            <summary>
+            Creates a testing client to see if messages are correctly received.
+            </summary>
+            <param name="port"></param>
+            <param name="deviceId"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

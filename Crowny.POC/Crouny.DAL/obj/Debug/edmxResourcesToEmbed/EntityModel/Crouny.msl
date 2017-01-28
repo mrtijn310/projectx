@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CrounyModelStoreContainer" CdmEntityContainer="CrounyEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="CrounyModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Devices">
+      <EntityTypeMapping TypeName="CrounyModel.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeviceSettings">
+      <EntityTypeMapping TypeName="CrounyModel.DeviceSetting">
+        <MappingFragment StoreEntitySet="DeviceSettings">
+          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="DeviceSettingsId" ColumnName="DeviceSettingsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Plugins">
+      <EntityTypeMapping TypeName="CrounyModel.Plugin">
+        <MappingFragment StoreEntitySet="Plugin">
+          <ScalarProperty Name="Scriptname" ColumnName="Scriptname" />
+          <ScalarProperty Name="Parameters" ColumnName="Parameters" />
+          <ScalarProperty Name="Script" ColumnName="Script" />
+          <ScalarProperty Name="PluginType" ColumnName="PluginType" />
+          <ScalarProperty Name="PluginId" ColumnName="PluginId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="DevicePlugin" TypeName="CrounyModel.DevicePlugin" StoreEntitySet="DevicePlugin">
+      <EndProperty Name="Plugin">
+        <ScalarProperty Name="PluginId" ColumnName="PluginId" />
+      </EndProperty>
+      <EndProperty Name="Device">
+        <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Rules">
+      <EntityTypeMapping TypeName="CrounyModel.Rule">
+        <MappingFragment StoreEntitySet="Rule">
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Settings" ColumnName="Settings" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="PluginId" ColumnName="PluginId" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
